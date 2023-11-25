@@ -22,7 +22,7 @@ import (
 	"github.com/Mrs4s/go-cqhttp/internal/base"
 )
 
-var client = newClient(time.Second * 15)
+var client = newClient(time.Second * 60)
 var clients syncx.Map[time.Duration, *http.Client]
 
 var clienth2 = &http.Client{
@@ -36,7 +36,7 @@ var clienth2 = &http.Client{
 		ForceAttemptHTTP2:   true,
 		MaxIdleConnsPerHost: 999,
 	},
-	Timeout: time.Second * 15,
+	Timeout: time.Second * 60,
 }
 
 func newClient(t time.Duration) *http.Client {
@@ -77,7 +77,7 @@ func (r Request) WithTimeout(t time.Duration) *Request {
 // SetTimeout set internal/download client timeout
 func SetTimeout(t time.Duration) {
 	if t == 0 {
-		t = time.Second * 10
+		t = time.Second * 60
 	}
 	client.Timeout = t
 	clienth2.Timeout = t
